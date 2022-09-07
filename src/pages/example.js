@@ -11,6 +11,7 @@ import {
   CustomerServiceFilled,
 } from '@ant-design/icons';
 import styles from './index.less';
+import {Button} from "antd";
 
 const Example = () => {
 
@@ -18,6 +19,8 @@ const Example = () => {
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState('');
   const [currentItems, setCurrentItems] = useState([]);
+
+  const [text, setText] = useState('');
 
   useEffect(async () => {
     await singleCollection(id).then((response) => {
@@ -62,6 +65,21 @@ const Example = () => {
     getCategoryItems(id, i);
   };
 
+  const randomString = (len) => {
+    len = len || 32;
+    let t = 'ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+      a = t.length,
+      n = '';
+    for (let i = 0; i < len; i++) {
+      n += t.charAt(Math.floor(Math.random() * a));
+    }
+    return n;
+  }
+
+  const btnClick = (text) => {
+    setText(text);
+  }
+
   return (
     <div className={styles.box}>
       <div className={styles.menu}>
@@ -103,12 +121,15 @@ const Example = () => {
                 <div className={styles.overlayRender}>
                   <p>当前图片下标：{index}</p>
                   <p>图片集数量：{images.length}</p>
+                  <Button type='primary' onClick={() => btnClick(index)}>
+                    Button
+                  </Button>
                 </div>
               );
             }}
           >
             {currentItems.map((item, index) => (
-              <div className={styles.item} key={index}>
+              <div className={styles.item} key={randomString(16)}>
                 <PhotoView
                   src={`https://zhongguoyuyan.cn/svc/common/media/dialectCulture/W1920?id=${item._id}&serial=${item.photo.serial}`}
                   overlay={item}

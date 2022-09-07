@@ -13,6 +13,11 @@ export default defineConfig({
       path: 'example',
       component: '@/pages/example'
     },
+    {
+      path: 'example1',
+      component: '@/pages/example/example1'
+    },
   ],
   fastRefresh: {},
+  mfsu: {},
 });
